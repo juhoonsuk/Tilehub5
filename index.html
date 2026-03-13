@@ -3,404 +3,510 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>타일허브 | 메인화면 MVP</title>
+  <title>타일허브 | 중국 공장 타일을 가장 빠르게 연결합니다</title>
+  <meta
+    name="description"
+    content="직수입 가격 확인, 프로젝트 타일 견적, 글로벌 공급망 연결 플랫폼 타일허브"
+  />
   <style>
-    :root {
-      --bg: #f7f7f8;
-      --text: #111827;
-      --muted: #6b7280;
-      --card: #ffffff;
-      --card-border: #e5e7eb;
-      --hero-bg: linear-gradient(135deg, #ffffff, #f1f5f9);
-      --button-main: #111827;
-      --button-main-text: #ffffff;
-      --button-sub: #ffffff;
-      --button-sub-text: #111827;
-      --button-sub-border: #d1d5db;
-      --badge-bg: #f3f4f6;
-      --badge-text: #111827;
-      --input-bg: #ffffff;
-      --input-border: #d1d5db;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    }
-
-    body.dark {
-      --bg: #0a0a0a;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --card: rgba(255, 255, 255, 0.04);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --hero-bg: linear-gradient(135deg, #171717, #262626);
-      --button-main: #ffffff;
-      --button-main-text: #111827;
-      --button-sub: rgba(255, 255, 255, 0.08);
-      --button-sub-text: #ffffff;
-      --button-sub-border: rgba(255, 255, 255, 0.1);
-      --badge-bg: rgba(255, 255, 255, 0.08);
-      --badge-text: #ffffff;
-      --input-bg: #171717;
-      --input-border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.25s ease, color 0.25s ease;
+      font-family: "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      color: #1f2328;
+      background: #f7f7f8;
+      line-height: 1.6;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     .container {
-      max-width: 1180px;
+      width: min(1200px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 0 20px;
     }
 
+    /* Header */
     .header {
-      position: sticky;
+      position: absolute;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.55);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    body.dark .header {
-      background: rgba(10, 10, 10, 0.65);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 22px 0;
+      color: #fff;
     }
 
     .header-inner {
-      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 24px;
     }
 
-    .brand-title {
+    .logo {
       font-size: 28px;
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.5px;
     }
 
-    .brand-sub {
-      font-size: 14px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-    .theme-btn {
-      border: 1px solid var(--button-sub-border);
-      background: var(--button-sub);
-      color: var(--button-sub-text);
-      border-radius: 16px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .theme-btn:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
-    }
-
-    .hero {
-      padding: 70px 0 40px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+    .nav {
+      display: flex;
       gap: 28px;
-      align-items: center;
+      font-size: 15px;
+      font-weight: 500;
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      padding: 10px 14px;
+    .nav a {
+      opacity: 0.92;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(255,255,255,0.45);
       border-radius: 999px;
       font-size: 14px;
       font-weight: 700;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,0.62) 0%,
+          rgba(0,0,0,0.42) 38%,
+          rgba(0,0,0,0.18) 62%,
+          rgba(0,0,0,0.08) 100%
+        ),
+        url("hero.jpg") center center / cover no-repeat;
+      color: #fff;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.18), transparent 35%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(760px, 100%);
+      padding: 120px 0 80px;
+    }
+
+    .eyebrow {
+      display: inline-block;
       margin-bottom: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
     .hero h1 {
-      font-size: 56px;
-      line-height: 1.12;
       margin: 0;
-      letter-spacing: -0.04em;
+      font-size: clamp(38px, 6vw, 74px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+      font-weight: 800;
     }
 
     .hero p {
-      font-size: 18px;
-      line-height: 1.8;
-      color: var(--muted);
-      margin: 24px 0 0;
+      margin: 22px 0 0;
+      font-size: clamp(17px, 2vw, 22px);
+      color: rgba(255,255,255,0.92);
+      max-width: 620px;
     }
 
-    .button-row {
+    .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 14px;
+      margin-top: 34px;
     }
 
-    .btn-main,
-    .btn-sub {
-      padding: 15px 22px;
-      border-radius: 18px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-main {
-      border: none;
-      background: var(--button-main);
-      color: var(--button-main-text);
-    }
-
-    .btn-sub {
-      border: 1px solid var(--button-sub-border);
-      background: var(--button-sub);
-      color: var(--button-sub-text);
-    }
-
-    .btn-main:hover,
-    .btn-sub:hover {
-      transform: translateY(-1px);
-    }
-
-    .hero-card,
-    .feature-card,
-    .info-card,
-    .form-card,
-    .product-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card {
-      background: var(--hero-bg);
-      border-radius: 28px;
-      padding: 28px;
-    }
-
-    .hero-card-top {
-      display: flex;
+    .btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .hero-card-top h2 {
-      margin: 0;
-      font-size: 22px;
-    }
-
-    .mini-badge {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 12px;
+      justify-content: center;
+      min-width: 160px;
+      height: 54px;
+      padding: 0 22px;
       border-radius: 999px;
-      background: var(--badge-bg);
-      color: var(--badge-text);
-    }
-
-    .product-card {
-      border-radius: 22px;
-      padding: 18px;
-      margin-top: 14px;
-    }
-
-    .product-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .product-name {
-      font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 6px;
-    }
-
-    .product-meta {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .product-price {
       font-size: 15px;
       font-weight: 800;
-      white-space: nowrap;
+      transition: 0.2s ease;
     }
 
+    .btn-primary {
+      background: #d4943d;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(212, 148, 61, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #c9872f;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.30);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    /* Sections */
     .section {
-      padding: 18px 0 28px;
+      padding: 92px 0;
     }
 
-    .feature-grid,
-    .bottom-grid {
+    .section-head {
+      margin-bottom: 36px;
+    }
+
+    .section-head .label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #a87025;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      color: #121417;
+    }
+
+    .section-head p {
+      margin: 14px 0 0;
+      max-width: 720px;
+      color: #616772;
+      font-size: 17px;
+    }
+
+    /* Cards */
+    .grid-3 {
       display: grid;
-      gap: 18px;
-    }
-
-    .feature-grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
 
-    .bottom-grid {
-      grid-template-columns: 1fr 1fr;
-      margin-top: 10px;
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(15, 23, 42, 0.05);
     }
 
-    .feature-card,
-    .info-card,
-    .form-card {
-      border-radius: 26px;
+    .card-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #f1e1cb;
+      color: #9b6521;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.3;
+      color: #121417;
+    }
+
+    .card p {
+      margin: 0;
+      color: #616772;
+      font-size: 15px;
+    }
+
+    /* Product cards */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .tile-card {
+      overflow: hidden;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    .tile-image {
+      height: 260px;
+      background: linear-gradient(135deg, #d9cfbf, #f0eadf);
+    }
+
+    .tile-body {
       padding: 24px;
     }
 
-    .feature-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 14px;
-      background: rgba(0, 0, 0, 0.05);
+    .tile-tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #f4efe8;
+      color: #8a6331;
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    body.dark .feature-icon {
-      background: rgba(255, 255, 255, 0.08);
+    .tile-body h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      color: #121417;
     }
 
-    .feature-card h3,
-    .info-card h3,
-    .form-card h3 {
+    .tile-body p {
       margin: 0;
-      font-size: 24px;
+      color: #616772;
+      font-size: 15px;
     }
 
-    .feature-card p,
-    .info-card p {
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 10px;
-      margin-bottom: 0;
+    .tile-price {
+      margin-top: 14px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #b97828;
+      letter-spacing: -0.3px;
     }
 
-    .info-list {
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
+    .tile-meta {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #6b7280;
     }
 
-    .info-list li {
-      position: relative;
-      padding-left: 28px;
-      margin-bottom: 14px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .info-list li::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 12px;
+    .tile-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
       margin-top: 18px;
     }
 
-    .form-input {
-      width: 100%;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--text);
-      border-radius: 18px;
-      padding: 14px 16px;
+    .tile-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .tile-link-primary {
+      background: #111315;
+      color: #fff;
+    }
+
+    .tile-link-secondary {
+      background: #f4efe8;
+      color: #8a6331;
+      border: 1px solid rgba(138, 99, 49, 0.12);
+    }
+
+    /* Process */
+    .process {
+      background: #111315;
+      color: #fff;
+    }
+
+    .process .section-head h2,
+    .process .section-head p {
+      color: #fff;
+    }
+
+    .process .section-head p {
+      opacity: 0.82;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .process-card {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .process-step {
+      font-size: 13px;
+      font-weight: 800;
+      color: #d9aa61;
+      margin-bottom: 10px;
+    }
+
+    .process-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .process-card p {
+      margin: 0;
       font-size: 15px;
-      outline: none;
+      color: rgba(255,255,255,0.78);
     }
 
-    .form-input::placeholder {
-      color: var(--muted);
+    /* CTA */
+    .cta-box {
+      padding: 40px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #f5efe7, #ece3d7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
 
-    .footer-space {
-      height: 50px;
+    .cta-box h3 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.25;
+      letter-spacing: -0.8px;
+      color: #121417;
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .feature-grid,
-      .bottom-grid {
-        grid-template-columns: 1fr;
+    .cta-box p {
+      margin: 0;
+      color: #5f6470;
+      font-size: 16px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0 60px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .footer-line {
+      height: 1px;
+      background: rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .grid-3,
+      .tile-grid,
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero h1 {
-        font-size: 40px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header-inner {
-        height: auto;
-        padding: 14px 0;
-        align-items: flex-start;
+      .cta-box {
         flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 18px 0;
+      }
+
+      .nav,
+      .header-cta {
+        display: none;
       }
 
       .hero {
-        padding-top: 40px;
+        min-height: 88vh;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(0,0,0,0.48) 0%,
+            rgba(0,0,0,0.34) 45%,
+            rgba(0,0,0,0.22) 100%
+          ),
+          url("hero.jpg") center center / cover no-repeat;
       }
 
-      .hero h1 {
-        font-size: 32px;
+      .hero-content {
+        padding: 110px 0 60px;
       }
 
-      .theme-btn,
-      .btn-main,
-      .btn-sub {
-        width: 100%;
+      .grid-3,
+      .tile-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
       }
 
-      .button-row {
-        flex-direction: column;
+      .section {
+        padding: 72px 0;
       }
 
-      .product-top {
-        flex-direction: column;
+      .card,
+      .tile-body,
+      .process-card,
+      .cta-box {
+        padding: 22px;
+      }
+
+      .tile-image {
+        height: 220px;
       }
     }
   </style>
@@ -408,160 +514,200 @@
 <body>
   <header class="header">
     <div class="container header-inner">
-      <div>
-        <div class="brand-title">타일허브</div>
-        <div class="brand-sub">Tile sourcing platform MVP</div>
-      </div>
-      <button id="themeToggle" class="theme-btn">화이트모드</button>
+      <a href="#" class="logo">TILEHUB</a>
+
+      <nav class="nav">
+        <a href="#about">플랫폼 소개</a>
+        <a href="#tiles">대표 타일</a>
+        <a href="#process">견적 프로세스</a>
+        <a href="#contact">문의</a>
+      </nav>
+
+      <a href="#contact" class="header-cta">견적 요청</a>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="badge">직수입 가격 공개 · 프로젝트 견적 · 공장 연결</div>
-          <h1>
-            중국 공장 직수입 타일,<br />
-            가격부터 바로 확인하세요.
-          </h1>
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">GLOBAL TILE SUPPLY PLATFORM</div>
+          <h1>중국 공장 타일을 가장 빠르게 연결합니다</h1>
           <p>
-            타일허브는 재고 경쟁보다 공급망 경쟁에 집중합니다.
-            대표 상품 가격을 먼저 보여주고, 프로젝트 문의와 주문제작 연결까지
-            한 번에 이어지는 구조를 연습용 MVP로 구성했습니다.
+            직수입 가격 확인 · 프로젝트 타일 견적 · 글로벌 공급망
           </p>
-
-          <div class="button-row">
-            <button class="btn-main">가격 확인하기</button>
-            <button class="btn-sub">프로젝트 견적 요청</button>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="hero-card-top">
-            <h2>대표 상품 미리보기</h2>
-            <span class="mini-badge">MVP Demo</span>
-          </div>
-
-          <div class="product-card">
-            <div class="product-top">
-              <div>
-                <div class="product-name">French Stone Beige</div>
-                <div class="product-meta">600×600 · Matte · Floor / Wall</div>
-              </div>
-              <div class="product-price">₩19,800/㎡~</div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-top">
-              <div>
-                <div class="product-name">Concrete Gray</div>
-                <div class="product-meta">600×1200 · Soft Matte · Commercial / Residential</div>
-              </div>
-              <div class="product-price">₩24,500/㎡~</div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-top">
-              <div>
-                <div class="product-name">Marble Vein White</div>
-                <div class="product-meta">600×1200 · Polished · Lobby / Interior</div>
-              </div>
-              <div class="product-price">₩28,000/㎡~</div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="product-top">
-              <div>
-                <div class="product-name">Rustic Brown</div>
-                <div class="product-meta">600×600 · Natural · Outdoor / Terrace</div>
-              </div>
-              <div class="product-price">₩21,500/㎡~</div>
-            </div>
+          <div class="hero-buttons">
+            <a href="#tiles" class="btn btn-primary">대표 타일 보기</a>
+            <a href="#contact" class="btn btn-secondary">프로젝트 견적 요청</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🏭</div>
-          <h3>중국 공장 직연결</h3>
-          <p>중간 단계보다 공급망 경쟁력에 집중합니다.</p>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">WHY TILEHUB</div>
+          <h2>재고 경쟁이 아니라 공급망 경쟁입니다</h2>
+          <p>
+            타일허브는 중국 공장 네트워크를 기반으로 대표 상품, 서브 다양성,
+            주문제작 대응까지 연결하는 프로젝트 중심 타일 플랫폼입니다.
+          </p>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">📄</div>
-          <h3>빠른 프로젝트 견적</h3>
-          <p>도면과 수량 기반으로 빠르게 상담을 시작합니다.</p>
-        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-number">01</div>
+            <h3>직수입 가격 공개</h3>
+            <p>
+              시장 진입의 시작은 가격입니다. 대표 품목을 전면 노출해 빠르게
+              비교하고 검토할 수 있게 만듭니다.
+            </p>
+          </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">🏢</div>
-          <h3>B2B 중심 구조</h3>
-          <p>유통, 시공, 프로젝트 물량에 맞춘 흐름입니다.</p>
-        </div>
-      </div>
-    </section>
+          <div class="card">
+            <div class="card-number">02</div>
+            <h3>프로젝트 견적 중심</h3>
+            <p>
+              소매형 쇼핑몰이 아니라 프로젝트와 유통 물량에 맞춘 견적 구조로
+              연결합니다.
+            </p>
+          </div>
 
-    <section class="section">
-      <div class="container bottom-grid">
-        <div class="info-card">
-          <h3>왜 타일허브인가</h3>
-          <ul class="info-list">
-            <li>대표 상품 가격 공개로 빠른 유입</li>
-            <li>프로젝트 문의 중심의 전환 구조</li>
-            <li>중국 공장 네트워크 기반 공급</li>
-            <li>향후 도면분석 · AI견적 확장 가능</li>
-          </ul>
-        </div>
-
-        <div class="form-card">
-          <h3>견적 요청 폼 예시</h3>
-          <div class="form-grid">
-            <input class="form-input" placeholder="프로젝트명" />
-            <input class="form-input" placeholder="필요 사이즈 (예: 600×600)" />
-            <input class="form-input" placeholder="대략 수량 / 면적" />
-            <input class="form-input" placeholder="연락처" />
-            <button class="btn-main">견적 요청 보내기</button>
+          <div class="card">
+            <div class="card-number">03</div>
+            <h3>중국 공장 네트워크</h3>
+            <p>
+              공장별 강점, 디자인, 생산 대응력, 선적 가능성까지 반영한
+              공급망형 플랫폼 구조를 지향합니다.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="footer-space"></div>
+    <section class="section" id="tiles">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">FEATURED TILES</div>
+          <h2>대표 디자인 타일부터 시작합니다</h2>
+          <p>
+            앵커 상품은 전면에, 서브 상품은 넓고 깊게. 시장에서 먼저 반응하는
+            디자인을 빠르게 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="tile-grid">
+          <article class="tile-card">
+            <div class="tile-image"></div>
+            <div class="tile-body">
+              <span class="tile-tag">Stone Look</span>
+              <h3>Beige Stone 600×600</h3>
+              <p>미니멀 베이지 스톤룩 / 프로젝트·유통 물량 대응</p>
+              <div class="tile-price">$5.80 / m²</div>
+              <div class="tile-meta">MOQ 1 Container · 600×600 / 600×1200</div>
+              <div class="tile-actions">
+                <a href="https://example.com/product-1" target="_blank" class="tile-link-btn tile-link-primary">제품 링크</a>
+                <a href="#contact" class="tile-link-btn tile-link-secondary">견적 요청</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="tile-card">
+            <div class="tile-image"></div>
+            <div class="tile-body">
+              <span class="tile-tag">Travertine</span>
+              <h3>Warm Neutral 600×1200</h3>
+              <p>유럽 감성 베이지 계열 / 욕실·거실 중심 제안</p>
+              <div class="tile-price">$7.20 / m²</div>
+              <div class="tile-meta">MOQ 1 Container · 600×1200</div>
+              <div class="tile-actions">
+                <a href="https://example.com/product-2" target="_blank" class="tile-link-btn tile-link-primary">제품 링크</a>
+                <a href="#contact" class="tile-link-btn tile-link-secondary">견적 요청</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="tile-card">
+            <div class="tile-image"></div>
+            <div class="tile-body">
+              <span class="tile-tag">Project Line</span>
+              <h3>Large Format 800×800</h3>
+              <p>대형 프로젝트용 규격 / 가격 경쟁력 중심 라인</p>
+              <div class="tile-price">$8.10 / m²</div>
+              <div class="tile-meta">MOQ 1 Container · 800×800</div>
+              <div class="tile-actions">
+                <a href="https://example.com/product-3" target="_blank" class="tile-link-btn tile-link-primary">제품 링크</a>
+                <a href="#contact" class="tile-link-btn tile-link-secondary">견적 요청</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process" id="process">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">PROCESS</div>
+          <h2>도면부터 견적까지 빠르게 연결합니다</h2>
+          <p>
+            앞으로는 AI 계산, 도면 분석, 이미지 기반 커스텀까지 확장할 수 있는
+            구조를 염두에 둔 흐름입니다.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-card">
+            <div class="process-step">STEP 01</div>
+            <h3>품목 선택</h3>
+            <p>대표 상품과 유사 디자인을 기준으로 먼저 방향을 잡습니다.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">STEP 02</div>
+            <h3>도면·수량 접수</h3>
+            <p>프로젝트 정보, 규격, 수량, 납기 조건을 수집합니다.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">STEP 03</div>
+            <h3>공장 매칭</h3>
+            <p>가격, 품질, 최소주문수량, 생산 가능성을 함께 검토합니다.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-step">STEP 04</div>
+            <h3>견적·발주 연결</h3>
+            <p>견적 회신 후 실제 발주와 선적 단계까지 이어집니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h3>프로젝트 견적을 보내주세요</h3>
+            <p>
+              현장 규모, 희망 규격, 디자인 방향만 있어도 시작할 수 있습니다.
+            </p>
+          </div>
+          <div class="hero-buttons" style="margin-top:0;">
+            <a href="mailto:info@tilehub.kr" class="btn btn-primary">이메일 문의</a>
+            <a href="tel:010-0000-0000" class="btn btn-secondary" style="color:#121417; border-color:rgba(18,20,23,0.12); background:#fff;">전화 문의</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const body = document.body;
-    const themeToggle = document.getElementById("themeToggle");
-
-    function applyTheme(theme) {
-      if (theme === "dark") {
-        body.classList.add("dark");
-        themeToggle.textContent = "화이트모드";
-      } else {
-        body.classList.remove("dark");
-        themeToggle.textContent = "다크모드";
-      }
-      localStorage.setItem("tilehub-theme", theme);
-    }
-
-    const savedTheme = localStorage.getItem("tilehub-theme");
-    if (savedTheme === "dark") {
-      applyTheme("dark");
-    } else {
-      applyTheme("light");
-    }
-
-    themeToggle.addEventListener("click", function () {
-      const isDark = body.classList.contains("dark");
-      applyTheme(isDark ? "light" : "dark");
-    });
-  </script>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-line"></div>
+      <div>TILEHUB · 중국 공장 타일 공급망 플랫폼 MVP</div>
+    </div>
+  </footer>
 </body>
 </html>

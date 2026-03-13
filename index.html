@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>타일허브 | 메인화면 MVP</title>
+  <style>
+    :root {
+      --bg: #f7f7f8;
+      --text: #111827;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --card-border: #e5e7eb;
+      --hero-bg: linear-gradient(135deg, #ffffff, #f1f5f9);
+      --button-main: #111827;
+      --button-main-text: #ffffff;
+      --button-sub: #ffffff;
+      --button-sub-text: #111827;
+      --button-sub-border: #d1d5db;
+      --badge-bg: #f3f4f6;
+      --badge-text: #111827;
+      --input-bg: #ffffff;
+      --input-border: #d1d5db;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark {
+      --bg: #0a0a0a;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --hero-bg: linear-gradient(135deg, #171717, #262626);
+      --button-main: #ffffff;
+      --button-main-text: #111827;
+      --button-sub: rgba(255, 255, 255, 0.08);
+      --button-sub-text: #ffffff;
+      --button-sub-border: rgba(255, 255, 255, 0.1);
+      --badge-bg: rgba(255, 255, 255, 0.08);
+      --badge-text: #ffffff;
+      --input-bg: #171717;
+      --input-border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.55);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark .header {
+      background: rgba(10, 10, 10, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header-inner {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .theme-btn {
+      border: 1px solid var(--button-sub-border);
+      background: var(--button-sub);
+      color: var(--button-sub-text);
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .hero {
+      padding: 70px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      line-height: 1.12;
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 24px 0 0;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn-main,
+    .btn-sub {
+      padding: 15px 22px;
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-main {
+      border: none;
+      background: var(--button-main);
+      color: var(--button-main-text);
+    }
+
+    .btn-sub {
+      border: 1px solid var(--button-sub-border);
+      background: var(--button-sub);
+      color: var(--button-sub-text);
+    }
+
+    .btn-main:hover,
+    .btn-sub:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-card,
+    .feature-card,
+    .info-card,
+    .form-card,
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      background: var(--hero-bg);
+      border-radius: 28px;
+      padding: 28px;
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hero-card-top h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .mini-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+    }
+
+    .product-card {
+      border-radius: 22px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .product-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .product-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .product-meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .product-price {
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding: 18px 0 28px;
+    }
+
+    .feature-grid,
+    .bottom-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bottom-grid {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 10px;
+    }
+
+    .feature-card,
+    .info-card,
+    .form-card {
+      border-radius: 26px;
+      padding: 24px;
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .feature-icon {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-card h3,
+    .info-card h3,
+    .form-card h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .feature-card p,
+    .info-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .info-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .info-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .info-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .form-input {
+      width: 100%;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: var(--muted);
+    }
+
+    .footer-space {
+      height: 50px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .feature-grid,
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .theme-btn,
+      .btn-main,
+      .btn-sub {
+        width: 100%;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .product-top {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div>
+        <div class="brand-title">타일허브</div>
+        <div class="brand-sub">Tile sourcing platform MVP</div>
+      </div>
+      <button id="themeToggle" class="theme-btn">화이트모드</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge">직수입 가격 공개 · 프로젝트 견적 · 공장 연결</div>
+          <h1>
+            중국 공장 직수입 타일,<br />
+            가격부터 바로 확인하세요.
+          </h1>
+          <p>
+            타일허브는 재고 경쟁보다 공급망 경쟁에 집중합니다.
+            대표 상품 가격을 먼저 보여주고, 프로젝트 문의와 주문제작 연결까지
+            한 번에 이어지는 구조를 연습용 MVP로 구성했습니다.
+          </p>
+
+          <div class="button-row">
+            <button class="btn-main">가격 확인하기</button>
+            <button class="btn-sub">프로젝트 견적 요청</button>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <h2>대표 상품 미리보기</h2>
+            <span class="mini-badge">MVP Demo</span>
+          </div>
+
+          <div class="product-card">
+            <div class="product-top">
+              <div>
+                <div class="product-name">French Stone Beige</div>
+                <div class="product-meta">600×600 · Matte · Floor / Wall</div>
+              </div>
+              <div class="product-price">₩19,800/㎡~</div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-top">
+              <div>
+                <div class="product-name">Concrete Gray</div>
+                <div class="product-meta">600×1200 · Soft Matte · Commercial / Residential</div>
+              </div>
+              <div class="product-price">₩24,500/㎡~</div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-top">
+              <div>
+                <div class="product-name">Marble Vein White</div>
+                <div class="product-meta">600×1200 · Polished · Lobby / Interior</div>
+              </div>
+              <div class="product-price">₩28,000/㎡~</div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-top">
+              <div>
+                <div class="product-name">Rustic Brown</div>
+                <div class="product-meta">600×600 · Natural · Outdoor / Terrace</div>
+              </div>
+              <div class="product-price">₩21,500/㎡~</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏭</div>
+          <h3>중국 공장 직연결</h3>
+          <p>중간 단계보다 공급망 경쟁력에 집중합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📄</div>
+          <h3>빠른 프로젝트 견적</h3>
+          <p>도면과 수량 기반으로 빠르게 상담을 시작합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏢</div>
+          <h3>B2B 중심 구조</h3>
+          <p>유통, 시공, 프로젝트 물량에 맞춘 흐름입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container bottom-grid">
+        <div class="info-card">
+          <h3>왜 타일허브인가</h3>
+          <ul class="info-list">
+            <li>대표 상품 가격 공개로 빠른 유입</li>
+            <li>프로젝트 문의 중심의 전환 구조</li>
+            <li>중국 공장 네트워크 기반 공급</li>
+            <li>향후 도면분석 · AI견적 확장 가능</li>
+          </ul>
+        </div>
+
+        <div class="form-card">
+          <h3>견적 요청 폼 예시</h3>
+          <div class="form-grid">
+            <input class="form-input" placeholder="프로젝트명" />
+            <input class="form-input" placeholder="필요 사이즈 (예: 600×600)" />
+            <input class="form-input" placeholder="대략 수량 / 면적" />
+            <input class="form-input" placeholder="연락처" />
+            <button class="btn-main">견적 요청 보내기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-space"></div>
+  </main>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        body.classList.add("dark");
+        themeToggle.textContent = "화이트모드";
+      } else {
+        body.classList.remove("dark");
+        themeToggle.textContent = "다크모드";
+      }
+      localStorage.setItem("tilehub-theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("tilehub-theme");
+    if (savedTheme === "dark") {
+      applyTheme("dark");
+    } else {
+      applyTheme("light");
+    }
+
+    themeToggle.addEventListener("click", function () {
+      const isDark = body.classList.contains("dark");
+      applyTheme(isDark ? "light" : "dark");
+    });
+  </script>
+</body>
+</html>
